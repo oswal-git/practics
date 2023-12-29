@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practics/utils/utils.dart';
 import 'package:practics/views/align_view/align_view.dart';
-import 'package:practics/views/centered_typography_screen/centered_typography_screen.dart';
+import 'package:practics/views/centered_typography_screen/typografic_screen.dart';
 import 'package:practics/views/circular_images/circular_images.dart';
 import 'package:practics/views/img_rounded/img_rounded.dart';
+import 'package:practics/views/list_maps/list_maps.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -75,7 +76,22 @@ class _HomeViewState extends State<HomeView> {
             ),
             onPressed: () {
               Get.to(
-                () => CenteredTypographyScreen(),
+                () => TypographyScreen(),
+              );
+            },
+          ),
+          20.ph,
+          ElevatedButton(
+            // ignore: prefer_const_constructors
+            child: Text(
+              'List and maps',
+              style: const TextStyle(
+                fontSize: 26,
+              ),
+            ),
+            onPressed: () {
+              Get.to(
+                () => const ListMaps(),
               );
             },
           ),

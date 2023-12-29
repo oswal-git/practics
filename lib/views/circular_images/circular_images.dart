@@ -30,6 +30,25 @@ class CircularImages extends StatelessWidget {
               ),
               20.ph,
               Container(
+                width: 35,
+                height: 35,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  // borderRadius: BorderRadius.circular(15.0), // ajusta el radio según sea necesario
+                  border: Border.all(
+                    color: Colors.red, // color del borde
+                    width: 2.0, // ancho del borde
+                  ),
+                ),
+                child: Icon(
+                  Icons.note_add,
+                  color: Colors.indigo[900],
+                  size: 20,
+                ),
+              ),
+              20.ph,
+              Container(
                 width: 120,
                 height: 120,
                 clipBehavior: Clip.antiAlias,
@@ -71,6 +90,21 @@ class CircularImages extends StatelessWidget {
                 radius: 60,
                 backgroundImage: NetworkImage(
                   'https://picsum.photos/seed/904/600',
+                ),
+              ),
+              20.ph,
+              Card(
+                color: Colors.red,
+                shape: const CircleBorder(),
+                clipBehavior: Clip.antiAlias,
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.note_add,
+                    color: Colors.indigo[900],
+                    size: 20,
+                  ),
                 ),
               ),
               20.ph,

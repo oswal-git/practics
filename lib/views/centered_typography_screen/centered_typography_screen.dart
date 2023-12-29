@@ -46,33 +46,15 @@ class CenteredTypographyScreen extends StatelessWidget {
         name: 'Headline Small',
         style: textTheme.headlineSmall!.copyWith(color: Colors.white),
       ),
-      TextStyleExample(
-          name: 'Title Large',
-          style: textTheme.titleLarge!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Title Medium',
-          style: textTheme.titleMedium!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Title Small',
-          style: textTheme.titleSmall!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Label Large',
-          style: textTheme.labelLarge!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Label Medium',
-          style: textTheme.labelMedium!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Label Small',
-          style: textTheme.labelSmall!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Body Large',
-          style: textTheme.bodyLarge!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Body Medium',
-          style: textTheme.bodyMedium!.copyWith(color: Colors.white)),
-      TextStyleExample(
-          name: 'Body Small',
-          style: textTheme.bodySmall!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Title Large', style: textTheme.titleLarge!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Title Medium', style: textTheme.titleMedium!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Title Small', style: textTheme.titleSmall!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Label Large', style: textTheme.labelLarge!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Label Medium', style: textTheme.labelMedium!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Label Small', style: textTheme.labelSmall!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Body Large', style: textTheme.bodyLarge!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Body Medium', style: textTheme.bodyMedium!.copyWith(color: Colors.white)),
+      TextStyleExample(name: 'Body Small', style: textTheme.bodySmall!.copyWith(color: Colors.white)),
     ];
 
     return CenteredPageBody(
