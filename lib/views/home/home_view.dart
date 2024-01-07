@@ -4,6 +4,7 @@ import 'package:practics/utils/utils.dart';
 import 'package:practics/views/align_view/align_view.dart';
 import 'package:practics/views/centered_typography_screen/typografic_screen.dart';
 import 'package:practics/views/circular_images/circular_images.dart';
+import 'package:practics/views/get_images/get_images_screen.dart';
 import 'package:practics/views/img_rounded/img_rounded.dart';
 import 'package:practics/views/list_maps/list_maps.dart';
 
@@ -92,6 +93,21 @@ class _HomeViewState extends State<HomeView> {
             onPressed: () {
               Get.to(
                 () => const ListMaps(),
+              );
+            },
+          ),
+          20.ph,
+          ElevatedButton(
+            // ignore: prefer_const_constructors
+            child: Text(
+              'Get images',
+              style: const TextStyle(
+                fontSize: 26,
+              ),
+            ),
+            onPressed: () {
+              Get.to(
+                () => const GetImagesScreen(),
               );
             },
           ),

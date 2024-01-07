@@ -48,37 +48,85 @@ class TypographyScreen extends StatelessWidget {
       const SizedBox(height: 7),
       TextStyleExample(
         name: 'Display Large',
-        style: textTheme.displayLarge!.copyWith(color: Colors.white),
+        style: textTheme.displayLarge!.copyWith(
+          color: const Color(0xFF0D279D),
+        ),
       ),
       TextStyleExample(
         name: 'Display Medium',
-        style: textTheme.displayMedium!.copyWith(color: Colors.white),
+        style: textTheme.displayMedium!.copyWith(
+          color: const Color(0xFF0D279D),
+        ),
       ),
       TextStyleExample(
         name: 'Display Small',
-        style: textTheme.displaySmall!.copyWith(color: Colors.white),
+        style: textTheme.displaySmall!.copyWith(
+          color: const Color(0xFF0D279D),
+        ),
       ),
       TextStyleExample(
         name: 'Headline Large',
-        style: textTheme.headlineLarge!.copyWith(color: Colors.white),
+        style: textTheme.headlineLarge!.copyWith(
+          color: const Color(0xFF0D279D),
+        ),
       ),
       TextStyleExample(
         name: 'Headline Medium',
-        style: textTheme.headlineMedium!.copyWith(color: Colors.white),
+        style: textTheme.headlineMedium!.copyWith(
+          color: const Color(0xFF0D279D),
+        ),
       ),
       TextStyleExample(
         name: 'Headline Small',
-        style: textTheme.headlineSmall!.copyWith(color: Colors.white),
+        style: textTheme.headlineSmall!.copyWith(
+          color: const Color(0xFF0D279D),
+        ),
       ),
-      TextStyleExample(name: 'Title Large', style: textTheme.titleLarge!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Title Medium', style: textTheme.titleMedium!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Title Small', style: textTheme.titleSmall!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Label Large', style: textTheme.labelLarge!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Label Medium', style: textTheme.labelMedium!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Label Small', style: textTheme.labelSmall!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Body Large', style: textTheme.bodyLarge!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Body Medium', style: textTheme.bodyMedium!.copyWith(color: Colors.white)),
-      TextStyleExample(name: 'Body Small', style: textTheme.bodySmall!.copyWith(color: Colors.white)),
+      TextStyleExample(
+          name: 'Title Large',
+          style: textTheme.titleLarge!.copyWith(
+            color: const Color(0xFF0D279D),
+          )),
+      TextStyleExample(
+          name: 'Title Medium',
+          style: textTheme.titleMedium!.copyWith(
+            color: const Color(0xFF0D279D),
+          )),
+      TextStyleExample(
+          name: 'Title Small',
+          style: textTheme.titleSmall!.copyWith(
+            color: const Color(0xFF0D279D),
+          )),
+      TextStyleExample(
+          name: 'Label Large',
+          style: textTheme.labelLarge!.copyWith(
+            color: const Color(0xFF0D279D),
+          )),
+      TextStyleExample(
+          name: 'Label Medium',
+          style: textTheme.labelMedium!.copyWith(
+            color: const Color(0xFF0E159B),
+          )),
+      TextStyleExample(
+          name: 'Label Small',
+          style: textTheme.labelSmall!.copyWith(
+            color: const Color(0xFF0E159B),
+          )),
+      TextStyleExample(
+          name: 'Body Large',
+          style: textTheme.bodyLarge!.copyWith(
+            color: const Color(0xFF0E159B),
+          )),
+      TextStyleExample(
+          name: 'Body Medium',
+          style: textTheme.bodyMedium!.copyWith(
+            color: const Color(0xFF0E159B),
+          )),
+      TextStyleExample(
+          name: 'Body Small',
+          style: textTheme.bodySmall!.copyWith(
+            color: const Color(0xFF0E159B),
+          )),
     ];
 
     // We want the scroll bars to be at the edge of the screen, not next to the
@@ -112,9 +160,11 @@ class TypographyScreen extends StatelessWidget {
                 minWidth: MediaQuery.of(context).size.width / 2,
               ),
               child: ScrollConfiguration(
-                behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: Padding(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 10),
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width / 10),
                   child: AnimationLimiter(
                     child: ListView.builder(
                       controller: myScrollController,
