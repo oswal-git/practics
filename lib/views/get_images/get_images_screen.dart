@@ -11,8 +11,10 @@ class GetImagesScreen extends StatefulWidget {
 }
 
 class _GetImagesScreenState extends State<GetImagesScreen> {
-  final GetImagesController getImagesController =
-      Get.put(GetImagesController());
+  final GetImagesController getImagesController = Get.put(GetImagesController());
+
+  final _appDefaultImage = 'assets/images/icons_user_profile_circle.png'.obs;
+  final _appDefaultNameImage = 'icons_user_profile_circle.png'.obs;
 
   final _newImageArticle = Rx<ImageArticle>(ImageArticle.clear());
   ImageArticle get newImageArticle => _newImageArticle.value;
@@ -25,19 +27,16 @@ class _GetImagesScreenState extends State<GetImagesScreen> {
   @override
   void initState() {
     super.initState();
-    getImagesController.iconUserDefaultProfile =
-        'assets/images/icons_user_profile_circle.png';
 
     _oldImageArticle.value.modify(
-      src: getImagesController.iconUserDefaultProfile,
-      nameFile: 'icons_user_profile_circle',
+      src: _appDefaultImage.value,
+      nameFile: _appDefaultNameImage.value,
       isDefault: true,
     );
     _newImageArticle.value = _oldImageArticle.value.copyWith();
 
     if (_newImageArticle.value.isDefault) {
-      getImagesController.imagePropertie.value =
-          Image.asset(getImagesController.iconUserDefaultProfile);
+      getImagesController.imagePropertie.value = Image.asset(getImagesController.iconUserDefaultProfile);
     }
 
     getImagesController.oldImageArticle = _oldImageArticle.value.copyWith();
@@ -56,28 +55,25 @@ class _GetImagesScreenState extends State<GetImagesScreen> {
             EglImageWidget(
               controller: getImagesController,
               image: _newImageArticle.value,
-              defaultImage: getImagesController.appDefaultImage,
+              defaultImage: _appDefaultImage.value,
               onPressedDefault: () {
                 // Lógica para recuperar la imagen por defecto
                 getImagesController.newImageArticle.modify(
-                  src: getImagesController.iconUserDefaultProfile,
-                  nameFile: 'icons_user_profile_circle',
+                  src: _appDefaultImage.value,
+                  nameFile: _appDefaultNameImage.value,
                   isDefault: true,
                 );
                 getImagesController.imageChanged = false;
                 getImagesController.imagePicked = null;
-                getImagesController.imagePropertie.value =
-                    Image.asset(getImagesController.newImageArticle.src);
+                getImagesController.imagePropertie.value = Image.asset(getImagesController.newImageArticle.src);
               },
               onPressedRestore: () {
                 // Lógica para restaurar la imagen inicial
                 getImagesController.imageChanged = false;
-                getImagesController.newImageArticle =
-                    getImagesController.oldImageArticle.copyWith();
+                getImagesController.newImageArticle = getImagesController.oldImageArticle.copyWith();
                 getImagesController.imagePicked = null;
                 getImagesController.oldImageArticle.isDefault
-                    ? getImagesController.imagePropertie.value =
-                        Image.asset(getImagesController.newImageArticle.src)
+                    ? getImagesController.imagePropertie.value = Image.asset(getImagesController.newImageArticle.src)
                     : Image.network(getImagesController.newImageArticle.src);
               },
             ),

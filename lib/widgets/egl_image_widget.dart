@@ -30,30 +30,25 @@ class EglImageWidget extends StatefulWidget {
 }
 
 class _EglImageWidgetState extends State<EglImageWidget> {
-  final GetImagesController getImagesController =
-      Get.put(GetImagesController());
+  final GetImagesController getImagesController = Get.put(GetImagesController());
 
   @override
   void initState() {
     super.initState();
 
-    widget.controller.newImageArticle =
-        widget.controller.oldImageArticle.copyWith();
+    widget.controller.oldImageArticle = widget.image.copyWith();
 
-    if (widget.controller.newImageArticle.isDefault) {
-      widget.controller.imagePropertie.value =
-          Image.asset(widget.controller.iconUserDefaultProfile);
+    widget.controller.newImageArticle = widget.image.copyWith();
+
+    if (widget.image.isDefault) {
+      widget.controller.imagePropertie.value = Image.asset(widget.defaultImage);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> optionsGetImage = [
-      {
-        'option': 'camera',
-        'texto': 'Camara',
-        'icon': Icons.camera_alt_outlined
-      },
+      {'option': 'camera', 'texto': 'Camara', 'icon': Icons.camera_alt_outlined},
       {'option': 'gallery', 'texto': 'Galería', 'icon': Icons.browse_gallery}
     ];
 
@@ -80,8 +75,7 @@ class _EglImageWidgetState extends State<EglImageWidget> {
                       child: Container(
                         width: MediaQuery.of(context).size.width * .88,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              15.0), // ajusta el radio según sea necesario
+                          borderRadius: BorderRadius.circular(15.0), // ajusta el radio según sea necesario
                           border: Border.all(
                             color: const Color(0xFFAAAAAA), // color del borde
                             width: 2.0, // ancho del borde
@@ -95,8 +89,7 @@ class _EglImageWidgetState extends State<EglImageWidget> {
                     )
                   : Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            15.0), // ajusta el radio según sea necesario
+                        borderRadius: BorderRadius.circular(15.0), // ajusta el radio según sea necesario
                         border: Border.all(
                           color: Colors.transparent, // color del borde
                           width: 2.0, // ancho del borde
@@ -116,8 +109,7 @@ class _EglImageWidgetState extends State<EglImageWidget> {
                     ),
             ),
             // Button restore default cover
-            if (widget.controller.imageChanged &&
-                !widget.controller.oldImageArticle.isDefault)
+            if (widget.controller.imageChanged && !widget.controller.oldImageArticle.isDefault)
               Positioned(
                 top: -22.0, // Ajusta según sea necesario
                 right: 10.0, // Ajusta según sea necesario
@@ -132,10 +124,7 @@ class _EglImageWidgetState extends State<EglImageWidget> {
             if (widget.controller.imageChanged)
               Positioned(
                 top: -22.0, // Ajusta según sea necesario
-                right: (widget.controller.imageChanged &&
-                        !widget.controller.oldImageArticle.isDefault)
-                    ? 70.0
-                    : 10.0, // Ajusta según sea necesario
+                right: (widget.controller.imageChanged && !widget.controller.oldImageArticle.isDefault) ? 70.0 : 10.0, // Ajusta según sea necesario
                 child: EglCircleIconButton(
                   // key: UniqueKey(),
                   backgroundColor: const Color(0xFFAAAAAA),
@@ -152,8 +141,7 @@ class _EglImageWidgetState extends State<EglImageWidget> {
 
 class GetImagesController extends GetxController {
   //
-  final Rx<Image> imagePropertie =
-      Rx<Image>(Image.asset('assets/images/icons_user_profile_circle.png'));
+  final Rx<Image> imagePropertie = Rx<Image>(Image.asset('assets/images/icons_user_profile_circle.png'));
 
   final _newImageArticle = Rx<ImageArticle>(ImageArticle.clear());
   ImageArticle get newImageArticle => _newImageArticle.value;
@@ -163,11 +151,9 @@ class GetImagesController extends GetxController {
   ImageArticle get oldImageArticle => _oldImageArticle.value;
   set oldImageArticle(ImageArticle value) => _oldImageArticle.value = value;
 
-  final _iconUserDefaultProfile =
-      'assets/images/icons_user_profile_circle.png'.obs;
+  final _iconUserDefaultProfile = 'assets/images/icons_user_profile_circle.png'.obs;
   String get iconUserDefaultProfile => _iconUserDefaultProfile.value;
-  set iconUserDefaultProfile(String value) =>
-      _iconUserDefaultProfile.value = value;
+  set iconUserDefaultProfile(String value) => _iconUserDefaultProfile.value = value;
 
   final _imageChanged = false.obs;
   bool get imageChanged => _imageChanged.value;
@@ -220,8 +206,7 @@ class GetImagesController extends GetxController {
     if (imagePick == null) {
       // ignore: curly_braces_in_flow_control_structures
       if (_newImageArticle.value.src == '') {
-        imagePropertie.value =
-            Image.asset('assets/images/icons_user_profile_circle.png');
+        imagePropertie.value = Image.asset('assets/images/icons_user_profile_circle.png');
       } else {
         imagePropertie.value = Image.network(_newImageArticle.value.src);
       }
@@ -234,23 +219,17 @@ class GetImagesController extends GetxController {
 
   Future<void> pickImage(String option) async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(
-        source: option == 'camera' ? ImageSource.camera : ImageSource.gallery);
+    final XFile? pickedFile = await picker.pickImage(source: option == 'camera' ? ImageSource.camera : ImageSource.gallery);
     if (pickedFile != null) {
       //   selectedImagePath = File(pickedFile.path);
       selectedImagePath.value = pickedFile.path;
-      selectedImageSize.value =
-          "${(File(selectedImagePath.value).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
+      selectedImageSize.value = "${(File(selectedImagePath.value).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
 
       // Crop
-      final cropImageFile = await ImageCropper().cropImage(
-          sourcePath: selectedImagePath.value,
-          maxWidth: 512,
-          maxHeight: 512,
-          compressFormat: ImageCompressFormat.png);
+      final cropImageFile =
+          await ImageCropper().cropImage(sourcePath: selectedImagePath.value, maxWidth: 512, maxHeight: 512, compressFormat: ImageCompressFormat.png);
       cropImagePath.value = cropImageFile!.path;
-      cropImageSize.value =
-          "${(File(cropImagePath.value).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
+      cropImageSize.value = "${(File(cropImagePath.value).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
 
       // Compress
       final dir = Directory.systemTemp;
@@ -264,8 +243,7 @@ class GetImagesController extends GetxController {
         format: CompressFormat.png,
       );
       compressedImagePath.value = compressedFile!.path;
-      compressedImageSize.value =
-          "${(File(compressedImagePath.value).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
+      compressedImageSize.value = "${(File(compressedImagePath.value).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
 
       // final String imageBase64 = base64Encode(imageFile.readAsBytesSync());
       _imageChanged.value = true;
