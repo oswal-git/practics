@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-ImageArticle articleRequestFromJson(String str) =>
-    ImageArticle.fromJson(json.decode(str));
+ImageArticle articleRequestFromJson(String str) => ImageArticle.fromJson(json.decode(str));
 
 String articleRequestToJson(ImageArticle data) => json.encode(data.toJson());
 

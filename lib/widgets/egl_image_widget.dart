@@ -12,18 +12,16 @@ import 'package:image_picker/image_picker.dart';
 class EglImageWidget extends StatefulWidget {
   const EglImageWidget({
     super.key,
-    this.controller,
     required this.image,
     required this.defaultImage,
     this.onPressedDefault,
     this.onPressedRestore,
   });
 
-  final dynamic controller;
   final ImageArticle image;
   final String defaultImage;
-  final VoidCallback? onPressedDefault;
-  final VoidCallback? onPressedRestore;
+  final ValueChanged<ImageArticle>? onPressedDefault;
+  final ValueChanged<ImageArticle>? onPressedRestore;
 
   @override
   State<EglImageWidget> createState() => _EglImageWidgetState();
@@ -36,13 +34,11 @@ class _EglImageWidgetState extends State<EglImageWidget> {
   void initState() {
     super.initState();
 
-    widget.controller.oldImageArticle = widget.image.copyWith();
+    getImagesController.oldImageArticle = widget.image.copyWith();
 
-    widget.controller.newImageArticle = widget.image.copyWith();
+    getImagesController.newImageArticle = widget.image.copyWith();
 
-    if (widget.image.isDefault) {
-      widget.controller.imagePropertie.value = Image.asset(widget.defaultImage);
-    }
+    getImagesController.getImageWidget(null);
   }
 
   @override
@@ -51,6 +47,13 @@ class _EglImageWidgetState extends State<EglImageWidget> {
       {'option': 'camera', 'texto': 'Camara', 'icon': Icons.camera_alt_outlined},
       {'option': 'gallery', 'texto': 'Galería', 'icon': Icons.browse_gallery}
     ];
+
+    String getNameFilePath(String path, {String fileSeparator = '/', String extSeparator = '.'}) => path.substring(
+        path.lastIndexOf(fileSeparator) == -1 ? 0 : path.lastIndexOf(fileSeparator) + 1,
+        path.lastIndexOf(extSeparator) == -1 ? path.length : path.lastIndexOf(extSeparator));
+
+    String getExtFilePath(String path, {String extSeparator = '.'}) =>
+        path.substring(path.lastIndexOf(extSeparator) == -1 ? path.length : path.lastIndexOf(extSeparator) + 1, path.length);
 
     return Obx(
       () => Align(
@@ -66,7 +69,7 @@ class _EglImageWidgetState extends State<EglImageWidget> {
                   context: context,
                   onChanged: (value) async {
                     Get.back();
-                    await widget.controller.pickImage(value);
+                    await getImagesController.pickImage(value);
                   },
                 );
               },
@@ -83,7 +86,7 @@ class _EglImageWidgetState extends State<EglImageWidget> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15.0),
-                          child: widget.controller.imagePropertie.value,
+                          child: getImagesController.imagePropertie.value,
                         ),
                       ),
                     )
@@ -109,27 +112,51 @@ class _EglImageWidgetState extends State<EglImageWidget> {
                     ),
             ),
             // Button restore default cover
-            if (widget.controller.imageChanged && !widget.controller.oldImageArticle.isDefault)
+            // if (getImagesController.imageChanged && !widget.image.isDefault)
+            if (!widget.image.isDefault)
               Positioned(
                 top: -22.0, // Ajusta según sea necesario
                 right: 10.0, // Ajusta según sea necesario
                 child: EglCircleIconButton(
-                  // key: UniqueKey(),
-                  backgroundColor: const Color(0xFFAAAAAA),
-                  icon: Icons.disabled_by_default_outlined, // X
-                  onPressed: widget.onPressedDefault,
-                ),
+                    // key: UniqueKey(),
+                    backgroundColor: const Color(0xFFAAAAAA),
+                    icon: Icons.disabled_by_default_outlined, // X
+                    onPressed: () {
+                      // Lógica para recuperar la imagen por defecto
+
+                      String ext = getExtFilePath(widget.defaultImage);
+                      getImagesController.newImageArticle.modify(
+                        src: widget.defaultImage,
+                        nameFile: getNameFilePath(widget.defaultImage) + ext,
+                        isDefault: true,
+                      );
+                      getImagesController.imageChanged = false;
+                      getImagesController.imagePicked = null;
+                      getImagesController.imagePropertie.value = Image.asset(getImagesController.newImageArticle.src);
+
+                      widget.onPressedDefault!(getImagesController.newImageArticle);
+                    }),
               ),
             // Button restore initial cover
-            if (widget.controller.imageChanged)
+            if (getImagesController.imageChanged)
               Positioned(
                 top: -22.0, // Ajusta según sea necesario
-                right: (widget.controller.imageChanged && !widget.controller.oldImageArticle.isDefault) ? 70.0 : 10.0, // Ajusta según sea necesario
+                right: (getImagesController.imageChanged && !widget.image.isDefault) ? 70.0 : 10.0, // Ajusta según sea necesario
                 child: EglCircleIconButton(
                   // key: UniqueKey(),
                   backgroundColor: const Color(0xFFAAAAAA),
                   icon: Icons.restore, // Relojito hacia atrás
-                  onPressed: widget.onPressedRestore,
+                  onPressed: () {
+                    // Lógica para restaurar la imagen inicial
+                    getImagesController.imageChanged = false;
+                    getImagesController.newImageArticle = widget.image.copyWith();
+                    getImagesController.imagePicked = null;
+                    widget.image.isDefault
+                        ? getImagesController.imagePropertie.value = Image.asset(getImagesController.newImageArticle.src)
+                        : getImagesController.imagePropertie.value = Image.network(getImagesController.newImageArticle.src);
+
+                    widget.onPressedRestore!(getImagesController.newImageArticle);
+                  },
                 ),
               ),
           ],

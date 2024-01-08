@@ -52,8 +52,7 @@ class EglHelper {
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
+                                      padding: const EdgeInsets.only(left: 10.0),
                                       child: Row(
                                         children: [
                                           Flexible(
@@ -110,29 +109,19 @@ class EglHelper {
       }
       switch (type) {
         case 'i':
-          object == ''
-              ? logger.i('eglLogger(${obtenerFechaHoraActual()}): $fragmento')
-              : logger.i('eglLogger: $fragmento, $object');
+          object == '' ? logger.i('eglLogger(${obtenerFechaHoraActual()}): $fragmento') : logger.i('eglLogger: $fragmento, $object');
           break;
         case 'e':
-          object == ''
-              ? logger.e('eglLogger(${obtenerFechaHoraActual()}): $fragmento')
-              : logger.e('eglLogger: $fragmento, $object');
+          object == '' ? logger.e('eglLogger(${obtenerFechaHoraActual()}): $fragmento') : logger.e('eglLogger: $fragmento, $object');
           break;
         case 'd':
-          object == ''
-              ? logger.d('eglLogger(${obtenerFechaHoraActual()}): $fragmento')
-              : logger.d('eglLogger: $fragmento, $object');
+          object == '' ? logger.d('eglLogger(${obtenerFechaHoraActual()}): $fragmento') : logger.d('eglLogger: $fragmento, $object');
           break;
         case 'w':
-          object == ''
-              ? logger.w('eglLogger(${obtenerFechaHoraActual()}): $fragmento')
-              : logger.w('eglLogger: $fragmento, $object');
+          object == '' ? logger.w('eglLogger(${obtenerFechaHoraActual()}): $fragmento') : logger.w('eglLogger: $fragmento, $object');
           break;
         case 'v':
-          object == ''
-              ? logger.t('eglLogger(${obtenerFechaHoraActual()}): $fragmento')
-              : logger.t('eglLogger: $fragmento, $object');
+          object == '' ? logger.t('eglLogger(${obtenerFechaHoraActual()}): $fragmento') : logger.t('eglLogger: $fragmento, $object');
           break;
         default:
       }
@@ -173,5 +162,12 @@ class EglHelper {
 
     return str;
   }
+
+  static String getNameFilePath(String path, {String fileSeparator = '/', String extSeparator = '.'}) => path.substring(
+      path.lastIndexOf(fileSeparator) == -1 ? 0 : path.lastIndexOf(fileSeparator) + 1,
+      path.lastIndexOf(extSeparator) == -1 ? path.length : path.lastIndexOf(extSeparator));
+
+  static String getExtFilePath(String path, {String extSeparator = '.'}) =>
+      path.substring(path.lastIndexOf(extSeparator) == -1 ? path.length : path.lastIndexOf(extSeparator) + 1, path.length);
 //
 }
